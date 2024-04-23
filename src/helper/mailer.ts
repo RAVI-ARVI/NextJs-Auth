@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 
 export const sendEmail = async ({ email, emailType, userId }: any) => {
-  const hashToken = await bcrypt.hash(userId, 10);
+  const hashToken = await bcrypt.hash(userId.toString(), 10);
   try {
     if (emailType == "VERIFY") {
       await User.findByIdAndUpdate(userId, {
@@ -38,6 +38,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     const emailOptions = {
       from: "ravisankar@campx.in", // sender address
       to: email, // list of receivers
+
       subject:
         emailType === "VERIFY" ? "Verify your Email" : "Reset Your Password", // Subject line
       //   text: "Hello world?", // plain text body
