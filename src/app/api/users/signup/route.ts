@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
     const hashpassword = await bcrypt.hash(password, salt);
 
     const user = await User.findOne({ email: email });
+    
     if (user) {
       return NextResponse.json(
         {
